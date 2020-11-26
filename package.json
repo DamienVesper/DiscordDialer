@@ -1,0 +1,39 @@
+{
+  "name": "discord-dialer",
+  "version": "1.0.0",
+  "description": "A dialer utilizing MicroSip and Discord.JS",
+  "main": "index.js",
+  "scripts": {
+    "standalone": "pm2 start index.js",
+    "prod": "pm2 start shards.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamienVesper/Dialer.git"
+  },
+  "keywords": [
+    "discord",
+    "scambaiting",
+    "microsip"
+  ],
+  "author": "DamienVesper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamienVesper/Dialer/issues"
+  },
+  "homepage": "https://github.com/DamienVesper/Dialer#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
+    "grunt": "^1.3.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-nodemon": "^0.4.2",
+    "nodemon": "^2.0.6",
+    "pm2": "^4.5.0",
+    "robotjs": "^0.6.0"
+  }
+}
