@@ -7,7 +7,7 @@ let config = {
     // Preset configuration.
     colors: [0x00ff00, 0xff0000, 0xffffff],
     emojis: require(`./emojis.js`),
-    token: process.env.TOKEN,
+    token: process.env.DISCORD_BOT_TOKEN,
     version: `1.0.0`,
     footer: `Created by DamienVesper#0001`,
 

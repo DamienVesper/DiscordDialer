@@ -1,8 +1,7 @@
 // Require modules.
-const config = require(`../../config/config`);
+const config = require(`../config/config`);
 const Discord = require(`discord.js`);
 const fs = require(`fs`);
-
 
 // Command data.
 module.exports = {

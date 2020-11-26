@@ -1,9 +1,11 @@
 const Discord = require(`discord.js`);
 const fs = require(`fs`);
 const config = require(`./config/config.js`);
+const log = require(`./utils/log.js`);
+const dotenv = require(`dotenv`).config();
 
 let client = new Discord.Client({
-    disableMentions: true,
+    disableEveryone: true,
     fetchAllMembers: true,
     sync: true
 });

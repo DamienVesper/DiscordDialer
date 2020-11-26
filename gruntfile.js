@@ -1,5 +1,3 @@
-const webpackConfig = require(`./webpack.config.js`);
-
 module.exports = (grunt => {
     grunt.initConfig({
         pkg: grunt.file.readJSON(`package.json`),
@@ -14,7 +12,8 @@ module.exports = (grunt => {
             dev: [
                 `nodemon:dev`,
                 `watch:scripts`
-            ]
+            ],
+            options: { logConcurrentOutput: true }
         },
         nodemon: {
             dev: {
@@ -32,6 +31,10 @@ module.exports = (grunt => {
 
     grunt.registerTask(`build-dev`, [`clean:logs`]);
     grunt.registerTask(`build-dist`, [`clean:logs`]);
+    grunt.registerTask(`dev`, [`concurrent:dev`]);
 
     grunt.loadNpmTasks(`grunt-contrib-clean`);
+    grunt.loadNpmTasks(`grunt-contrib-watch`);
+    grunt.loadNpmTasks(`grunt-contrib-nodemon`);
+    grunt.loadNpmTasks(`grunt-concurrent`);
 });
