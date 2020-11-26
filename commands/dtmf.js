@@ -16,7 +16,7 @@ module.exports.execute = async(client, message, args) => {
     const m = `${message.author} »`;
 
     if(!message.member.roles.some(r => (config.roles.admin.includes(r.id) || config.roles.trusted.includes(r.id)))) return message.channel.send(`${config.emojis.no} You do not have permission to use the dialer.`);
-    fs.readFile(`logs/callstatus.log`, `utf8`, (err, data) => {
+    fs.readFile(config.logs.callStatus, `utf8`, (err, data) => {
         if(data == `false`) return message.channel.send(`${m} ${config.emojis.no} No call in progress, please dial a number to use DTMF.`);
 
         message.channel.send(`${m} ${config.emojis.ok} Sent DTMF Code: ${args[0]}`);
@@ -26,7 +26,6 @@ module.exports.execute = async(client, message, args) => {
         numbers.forEach(number => {
             setTimeout(() => { // Terrible way for this to work but it works.
                 switch(number) {
-                    // consider it done
                     case `1`: robot.dragMouse(280, 160); break;
                     case `2`: robot.dragMouse(400, 160); break;
                     case `3`: robot.dragMouse(510, 160); break;

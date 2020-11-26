@@ -17,7 +17,8 @@ let config = {
     roles: {
         trusted: `781360139231821854`,
         admin: `757137579849154630`
-    }
+    },
+    logFile: `logs/bot.log`
 }
 
-module.exports = { config }
+module.exports = config

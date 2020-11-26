@@ -10,17 +10,10 @@ let client = new Discord.Client({
     sync: true
 });
 
-fs.readFile(`logs/callstatus.log`, `utf8`, (err, data) => {
-    if(err) log(1, err);
-    log(0, `Current call state: ${data}`);
-    if(data == `true`) {
-        log(0, `Resetting Call Status to True`);
-        fs.writeFile(`logs/callstatus.log`, `false`, err => {
-            if(err) log(1, err);
-            log(0, `Call Status Reset`);
-        });
-    }
-});
+
+client.callStatus = false;
+log(`Current call state: ${client.callStatus}`, `green`);
+if(client.callStatus) log(`Resetting Call Status to True`, `false`);
 
 // Export client and config because the command files need them.
 module.exports = { client, config }
@@ -28,21 +21,27 @@ module.exports = { client, config }
 // Build client commands.
 client.commands = new Discord.Collection();
 fs.readdir(`${__dirname}/commands`, (err, files) => {
-    console.log(`Loading ${files.length} commands...`);
+    log(`Loading ${files.length} commands...`, `yellow`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./commands/${f}`));
-        console.log(`${i}: ${f} was loaded!`);
+        log(`${i}: ${f} was loaded!`, `yellow`);
     });
 });
 
 // Build client events.
 client.events = new Discord.Collection();
 fs.readdir(`${__dirname}/events`, (err, files) => {
-    console.log(`Loading ${files.length} events...`);
+    log(`Loading ${files.length} events...`, `yellow`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./events/${f}`));
-        console.log(`${i}: ${f} was loaded!`);
+        log(`${i}: ${f} was loaded!`, `yellow`);
     });
 });
 
-client.login(config.token);
+client.login(config.token).catch(err => log(err, `red`));
+process.on(`SIGINT`, () => {
+    log(`Client shutting down`, `red`);
+    log(``, `white`);
+    client.destroy();
+    process.exit();
+});
