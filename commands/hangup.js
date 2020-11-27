@@ -19,11 +19,13 @@ module.exports.execute = async(client, message, args) => {
     if(!message.member.roles.some(r => (config.roles.admin.includes(r.id) || config.roles.trusted.includes(r.id)))) return message.channel.send(`${m} ${config.emojis.no} You can't use that!`);
     log(`Current Call State: ${client.callStatus}`, `green`);
 
-    if(!client.callStatus) {
-        message.channel.send(`${config.emojis.ok} Hung up the phone...`);
+    if(client.callStatus) {
+        message.channel.send(`${m} ${config.emojis.ok} Hung up the phone...`);
         exec(`dial.bat /hangupall`, (err, data) => {
             if(err) log(err, `red`);
-            log(`${message.author.tag}`)
+            log(`${message.author.tag} hung up.`, `magenta`);
+            client.callStatus = false;
         });
     }
+    else message.channel.send(`${m} ${config.emojis.no} There is no call taking place at this time!`);
 }

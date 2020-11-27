@@ -21,7 +21,7 @@ module.exports.execute = async(client, message, args) => {
 
     message.channel.send(`${m} ${config.emojis.ok} Sent DTMF Code: ${args[0]}`);
 
-    let numbers = args[0].split(` `);
+    let numbers = args[0].toString().toLowerCase().split(``);
 
     numbers.forEach(number => {
         setTimeout(() => { // Terrible way for this to work but it works.
@@ -35,12 +35,14 @@ module.exports.execute = async(client, message, args) => {
                 case `7`: robot.dragMouse(280, 240); break;
                 case `8`: robot.dragMouse(400, 240); break;
                 case `9`: robot.dragMouse(510, 240); break;
-                case `0`: robot.dragMouse(280, 280); break;
-                case `#`: robot.dragMouse(400, 280); break;
                 case `*`: robot.dragMouse(280, 280); break;
+                case `0`: robot.dragMouse(400, 280); break;
+                case `#`: robot.dragMouse(510, 280); break;
+                case `r`: robot.dragMouse(280, 320); break;
+                case `c`: robot.dragMouse(510, 320); break;
                 default: return message.channel.send(`${config.emojis.warning} Invalid Parameters - DTMF code must be numerical or special characters like star \`*\` or hashtag \`*\`.`);
             }
             robot.mouseClick();
         }, 50);
     });
-}
+} 

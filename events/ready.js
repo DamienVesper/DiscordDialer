@@ -9,10 +9,9 @@ module.exports = client.on(`ready`, () => {
     log(`${client.user.tag} has started with ${client.users.size} users in ${client.guilds.size} servers.`, `green`);
     client.user.setPrescence({
         game: {
-            name: `${client.users.size} players mine in ${client.user.username}`,
+            name: `${client.users.size} scambaiters`,
             type: `WATCHING`
         },
         status: `dnd`
     });
-    client.setActivity(`Viewing things`);
 });
