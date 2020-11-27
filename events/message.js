@@ -24,13 +24,13 @@ module.exports = client.on(`message`, message => {
     else {
         try {
             // Log the command ran and execute the command.
-            log(2, `${message.author.tag} ran command ${command} in ${message.guild ? `${message.guild.name} [${message.guild.id}].`: ``}`);
+            log(`${message.author.tag} ran command ${command} in ${message.guild ? `${message.guild.name} [${message.guild.id}].`: ``}`, `magenta`);
             cmd.run(client, message, args)
         }
         catch(err) {
             // Catch and log the error.
-            log(1, `There was an error executing ${cmd.name}.js by user ${message.author.tag}.`);
-            log(1, err);
+            log(`There was an error executing ${cmd.name}.js by user ${message.author.tag}.`, `red`);
+            log(err, `red`);
 
             // Send a fallback message to the user.
             message.channel.send(`${m} There was an error executing that command.`);

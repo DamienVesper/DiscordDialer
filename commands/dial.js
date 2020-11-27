@@ -1,7 +1,6 @@
 // Require modules.
 const config = require(`../config/config`);
 const Discord = require(`discord.js`);
-const fs = require(`fs`);
 const { exec } = require(`child_process`);
 
 // Command data.
@@ -16,18 +15,40 @@ module.exports = {
 module.exports.execute = async(client, message, args) => {
     const m = `${message.author} »`;
 
-    if(!message.member.roles.some(r => (config.roles.admin.includes(r.id) || config.roles.trusted.includes(r.id)))) return message.channel.send(`${config.emojis.no} You do not have permission to use the dialer.`);
-    fs.readFile(`logs/callstatus.log`, `utf8`, (err, data) => {
-        if(err) log(1, err);
-        log(2, `Current Call State: ${data}`);
-        if(data == `true`) return message.channel.send(`${m} ${config.emojis.no} This dial command is for the bot owner only!`);
+    if(!message.member.roles.some(r => (config.roles.admin.includes(r.id) || config.roles.trusted.includes(r.id)))) return message.channel.send(`${m} ${config.emojis.no} You can't use that!`);
+    log(`Current Call State: ${client.callStatus}`, `green`);
+  
+    if(client.callStatus) return message.channel.send(`${m} ${config.emojis.no} A call is currently taking place!`);
+
+    if(args[0] == `balance`) {
         message.channel.send(`${m} ${config.emojis.telephone} Dialing balance check...`);
 
-        exec(`dial.bat` + `*225`, (err, data) => {
-            if(err) return log(1, err);
-            log(2, `${message.author.tag} dialed number: BALANCE (225) at ${new Date().toISOString()}.`);
+        exec(`dial.bat *225`, (err, data) => {
+            if(err) return log(err, `red`);
+            log(`${message.author.tag} dialed number: BALANCE (225).`, `magenta`);
         });
+        client.callStatus = true;
 
-        fs.writeFile(`logs/callstatus.log`, `true`)
-    });
+        setTimeout(() => {
+            message.channel.send(`${config.emojis.ok} Balance check has ended...`)
+        }, 11e3);
+        return;
+    }
+    else if(args[0] == `echotest`) {
+        message.channel.send(`${config.emojis.telephone} Dialing echotest...`);
+        exec(`dial.bat 4443`, (err, data) => {
+            if(err) log(error, `red`);
+            log(`${message.author.tag} dialed number: ECHOTEST (4443).`, `magenta`);
+        });
+        client.callStatus = true;
+    }
+    else {
+        if(args[0].length != 10 || isNaN(args[0])) return message.channel.send(`${m} ${config.emojis.warning} Invalid Number Format - Please enter a 10 digit US phone number without the "+1".`);
+        exec(`dial.bat ${args[0]}`, (err, data) => {
+            if(err) log(err, `error`);
+            log(`${message.author.tag} Dialed Number: +1 ${args[0]}.`, `magenta`);
+        });
+        message.channel.send(`${config.emojis.telephone} Dialing \`+1${args[0]}\`...`);
+        client.callStatus = true;
+    }
 }

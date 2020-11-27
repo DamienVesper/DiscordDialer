@@ -5,15 +5,18 @@
 
 const fs = require(`fs`);
 const config = require(`../config/config.js`);
+const path = require(`path`);
 
 module.exports = (content, color, discordMessage, options) => {
     // Create Variables.
-    const logFile = fs.createWriteStream(config.logFile, { flags: `a` });
-    let logColor;
+    if(!fs.existsSync(`./${config.logs.dir}`)) fs.mkdirSync(config.logs.dir);
+
+    const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../`, config.logs.dir)}/${config.logs.file}`, { flags: `a` });
+    let logColor, logCloseColor;
     let logContent = content;
     
     // Report an error if there is an issue with logging.
-    logFile.on(`error`, err => console.log(`\x1b[33m`, `Warning: Error writing log to ${config.logFile}\n${err}`));
+    logFile.on(`error`, err => console.log(`\x1b[33m`, `Warning: Error writing log to ${config.logs.dir + config.logs.file}\n${err}`));
 
     // Get time.
     const time = new Date();
@@ -25,31 +28,40 @@ module.exports = (content, color, discordMessage, options) => {
     const year = time.getFullYear();
     const formattedTime = `${month}-${day}-${year} ${hour}:${minute}:${second}`
 
+
     // Get color specified and set logColor variable to correct color
     switch(color) {
         case `black`:
             logColor = `\x1b[30m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `red`:
             logColor = `\x1b[31m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `green`:
             logColor = `\x1b[32m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `yellow`:
             logColor = `\x1b[33m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `blue`:
             logColor = `\x1b[34m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `magenta`:
             logColor = `\x1b[35m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `cyan`:
             logColor = `\x1b[36m`;
+            logCloseColor = `\x1b[39m`;
             break;
         case `white`:
             logColor = `\x1b[37m`;
+            logCloseColor = `\x1b[39m`;
             break;
     }
 
@@ -93,12 +105,12 @@ module.exports = (content, color, discordMessage, options) => {
             }
         }
 
-        // If the regex option is defined, apply the regex to logContent
+        // If the regex option is defined, apply the regex to logContent.
         if(options.regex) logContent = logContent.replace(/[^ -~]+/g, ``);
     }
     
     
     // Log logContent with the color specified to console
     logFile.write(`[${formattedTime}] >> ${logContent}`.replace(/\r?\n|\r/g, ``) + `\n`);
-    return console.log(logColor, logContent);
+    return console.log(logColor, logContent, logCloseColor);
 }

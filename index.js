@@ -21,20 +21,20 @@ module.exports = { client, config }
 // Build client commands.
 client.commands = new Discord.Collection();
 fs.readdir(`${__dirname}/commands`, (err, files) => {
-    log(`Loading ${files.length} commands...`, `yellow`);
+    log(`Loading ${files.length} commands...`, `cyan`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./commands/${f}`));
-        log(`${i}: ${f} was loaded!`, `yellow`);
+        log(`${i}: ${f} was loaded!`, `cyan`);
     });
 });
 
 // Build client events.
 client.events = new Discord.Collection();
 fs.readdir(`${__dirname}/events`, (err, files) => {
-    log(`Loading ${files.length} events...`, `yellow`);
+    log(`Loading ${files.length} events...`, `cyan`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./events/${f}`));
-        log(`${i}: ${f} was loaded!`, `yellow`);
+        log(`${i}: ${f} was loaded!`, `cyan`);
     });
 });
 
