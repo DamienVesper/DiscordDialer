@@ -43,7 +43,8 @@ module.exports.execute = async(client, message, args) => {
         client.callStatus = true;
     }
     else {
-        if(args[0].length != 10 || isNaN(args[0])) return message.channel.send(`${m} ${config.emojis.warning} Invalid Number Format - Please enter a 10 digit US phone number without the "+1".`);
+        if(args[0].length != 10 || isNaN(parseInt(args[0]))) return message.channel.send(`${m} ${config.emojis.warning} Invalid Number Format - Please enter a 10 digit US phone number without the "+1".`);
+        if(config.blacklistedNumbers.includes(`1${args[0]}`)) return message.channel.send(`${m} ${config.emojis.no} That number is blacklisted!`);
         exec(`dial.bat ${args[0]}`, (err, data) => {
             if(err) log(err, `error`);
             log(`${message.author.tag} Dialed Number: +1 ${args[0]}.`, `magenta`);

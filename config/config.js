@@ -10,9 +10,10 @@ let config = {
     token: process.env.DISCORD_BOT_TOKEN,
     version: `1.0.0`,
     footer: `Created by DamienVesper#0001`,
+    blacklistedNumbers: require(`./blacklist.js`),
 
     // Custom configuration.
-    developers: [`386940319666667521`, `621645567478464514`],
+    developers: [`386940319666667521`, `621645567478464514`, `447670159750987776`],
     prefix: `+`,
     roles: {
         trusted: `781360139231821854`,

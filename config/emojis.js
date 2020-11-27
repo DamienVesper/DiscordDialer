@@ -5,4 +5,4 @@ const emojis = {
     ok: `:white_check_mark:`
 }
 
-module.exports = { emojis }
+module.exports = emojis
