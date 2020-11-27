@@ -2,6 +2,7 @@
 const config = require(`../config/config`);
 const Discord = require(`discord.js`);
 const { exec } = require(`child_process`);
+const log = require(`../utils/log.js`);
 
 // Command data.
 module.exports = {

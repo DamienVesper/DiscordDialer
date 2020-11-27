@@ -9,13 +9,13 @@ module.exports = {
     aliases: [`commands`, `?`, `h`]
 }
 
-module.exports.run = async(client, message, args) => {
+module.exports.execute = async(client, message, args) => {
     let m = `${message.author} »`
     let data = [];
 
     if(!args[0]) {
         let helpTxt = ``;
-        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}`: ``)}\` - ${cmd.description}\n`: null);
+        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}`: ``)}\` - ${cmd.description}\n`: null);
 
         let sEmbed = new Discord.RichEmbed()
             .setColor(0xcfcf53)
