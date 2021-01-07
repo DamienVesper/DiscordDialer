@@ -113,6 +113,3 @@ dist
 
 # Templates
 *_template.js
-
-# MicroSIP configuration
-microsip/
