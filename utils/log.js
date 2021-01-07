@@ -13,7 +13,7 @@ module.exports = (color, ...content) => {
 
     const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../`, config.logs.dir)}/${config.logs.file}`, { flags: `a` });
     let logColor, logCloseColor;
-    let logContent = content;
+    let logContent = content.join(``);
     
     // Report an error if there is an issue with logging.
     logFile.on(`error`, err => console.log(`\x1b[33m`, `Warning: Error writing log to ${config.logs.dir + config.logs.file}\n${err}`));
