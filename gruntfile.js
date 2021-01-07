@@ -5,7 +5,9 @@ module.exports = (grunt => {
             scripts: {
                 files: [`**/*.js`, `!**/node-modules/**`],
                 tasks: [`build-dev`],
-                options: { spawn: false }
+                options: {
+                    spawn: false
+                }
             }
         },
         concurrent: {
@@ -13,7 +15,9 @@ module.exports = (grunt => {
                 `nodemon:dev`,
                 `watch:scripts`
             ],
-            options: { logConcurrentOutput: true }
+            options: {
+                logConcurrentOutput: true
+            }
         },
         nodemon: {
             dev: {

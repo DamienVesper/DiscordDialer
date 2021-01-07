@@ -1,21 +1,23 @@
 const Discord = require(`discord.js`);
-const { config } = require(`../index.js`);
+const {
+    config
+} = require(`../index.js`);
 
 module.exports = {
-	name: `help`,
-	description: `View info about commands.`,
-	usage: `[command name]`,
-	cooldown: null,
+    name: `help`,
+    description: `View info about commands.`,
+    usage: `[command name]`,
+    cooldown: null,
     aliases: [`commands`, `?`, `h`]
 }
 
-module.exports.execute = async(client, message, args) => {
+module.exports.execute = async (client, message, args) => {
     let m = `${message.author} »`
     let data = [];
 
-    if(!args[0]) {
+    if (!args[0]) {
         let helpTxt = ``;
-        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}`: ``)}\` - ${cmd.description}\n`: null);
+        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}`: ``)}\` - ${cmd.description}\n` : null);
 
         let sEmbed = new Discord.RichEmbed()
             .setColor(0xcfcf53)
@@ -29,11 +31,11 @@ module.exports.execute = async(client, message, args) => {
     const name = args[0].toLowerCase();
     const command = client.commands.get(name) || client.commands.find(c => c.aliases && c.aliases.includes(name));
 
-    if(!command || command.name == `dev`) return message.channel.send(`${v} That is not a valid command!`);
+    if (!command || command.name == `dev`) return message.channel.send(`${v} That is not a valid command!`);
 
-    if(command.usage) data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
-    if(command.aliases) data.push(`**Aliases:** ${command.aliases.join(`, `)}`);
-    if(command.cooldown !== null) data.push(`**Cooldown:** ${command.cooldown} seconds.`);
+    if (command.usage) data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
+    if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(`, `)}`);
+    if (command.cooldown !== null) data.push(`**Cooldown:** ${command.cooldown} seconds.`);
 
     let sEmbed = new Discord.RichEmbed()
         .setColor(0xcfcf53)

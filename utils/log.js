@@ -7,7 +7,7 @@ const fs = require(`fs`);
 const config = require(`../config/config.js`);
 const path = require(`path`);
 
-module.exports = (content, color, discordMessage, options) => {
+module.exports = (color, ...content) => {
     // Create Variables.
     if(!fs.existsSync(`./${config.logs.dir}`)) fs.mkdirSync(config.logs.dir);
 
