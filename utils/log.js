@@ -1,76 +1,56 @@
-/* Used to make complex logging easier and shorter */
-
-// Ex usage
-// log(message.content, `magenta`, message, {server: true, channel: true, user: true, regex: true});
-
 const fs = require(`fs`);
-const config = require(`../config/config.js`);
-const path = require(`path`);
+const dotenv = require(`dotenv`).config();
 
 module.exports = (color, ...content) => {
-    // Create Variables.
-    if(!fs.existsSync(`./${config.logs.dir}`)) fs.mkdirSync(config.logs.dir);
+    // Set timing variables.
+    let time = new Date();
+    let second = time.getSeconds().toString().padStart(2, `0`);;
+    let minute = time.getMinutes().toString().padStart(2, `0`);;
+    let hour = time.getHours().toString().padStart(2, `0`);;
+    let day = time.getDate().toString().padStart(2, `0`);
+    let month = (time.getMonth() + 1).toString().padStart(2, `0`);
+    let year = time.getFullYear().toString();
+    let formattedTime = `[${month}-${day}-${year} ${hour}:${minute}:${second}]`;
 
-    const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../`, config.logs.dir)}/${config.logs.file}`, { flags: `a` });
-    let logColor, logCloseColor;
-    let logContent = content.join(``);
-    
-    // Report an error if there is an issue with logging.
-    logFile.on(`error`, err => console.log(`\x1b[33m`, `Warning: Error writing log to ${config.logs.dir + config.logs.file}\n${err}`));
-
-    // Get time.
-    const time = new Date();
-    const second = String(time.getSeconds());
-    const minute = String(time.getMinutes());
-    const hour = String(time.getHours());
-    const day = String(time.getDate()).padStart(2, `0`);
-    const month = String(time.getMonth() + 1).padStart(2, `0`);
-    const year = time.getFullYear();
-    const formattedTime = `${month}-${day}-${year} ${hour}:${minute}:${second}`
-
-
-    // Get color specified and set logColor variable to correct color
-    switch(color) {
+    // Get specified color.
+    let logColor;
+    switch (color) {
         case `black`:
             logColor = `\x1b[30m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `red`:
             logColor = `\x1b[31m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `green`:
             logColor = `\x1b[32m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `yellow`:
             logColor = `\x1b[33m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `blue`:
             logColor = `\x1b[34m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `magenta`:
             logColor = `\x1b[35m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `cyan`:
             logColor = `\x1b[36m`;
-            logCloseColor = `\x1b[39m`;
             break;
         case `white`:
             logColor = `\x1b[37m`;
-            logCloseColor = `\x1b[39m`;
             break;
     }
 
-    // If no log volor is specified or if the color specified is invalid, throw an error
-    if(!logColor) {
-        throw `Did not specify a valid color`;
+    let logContent = ``;
+    for (const arg of content) {
+        if (typeof arg == `object`) {
+            logContent += JSON.stringify(arg);
+        } else {
+            logContent += arg.toString();
+        }
     }
-    
-    // Log logContent with the color specified to console
-    logFile.write(`[${formattedTime}] >> ${logContent}`.replace(/\r?\n|\r/g, ``) + `\n`);
-    return console.log(logColor, logContent, logCloseColor);
+
+    // If no color specified, throw an error.
+    if (!logColor) return;
+    return console.log(logColor, formattedTime, logContent);
 }
