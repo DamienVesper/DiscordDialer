@@ -39,6 +39,6 @@ module.exports = (grunt => {
 
     grunt.loadNpmTasks(`grunt-contrib-clean`);
     grunt.loadNpmTasks(`grunt-contrib-watch`);
-    grunt.loadNpmTasks(`grunt-contrib-nodemon`);
+    grunt.loadNpmTasks(`grunt-nodemon`);
     grunt.loadNpmTasks(`grunt-concurrent`);
 });
