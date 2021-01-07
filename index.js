@@ -11,36 +11,38 @@ let client = new Discord.Client({
 
 
 client.callStatus = false;
-log(`Current call state: ${client.callStatus}`, `green`);
-if(client.callStatus) log(`Resetting Call Status to True`, `false`);
+log(`green`, `Current call state: ${client.callStatus}`);
+if (client.callStatus) log(`green`, `Resetting Call Status to True`);
 
 // Export client and config because the command files need them.
-module.exports = { client, config }
+module.exports = {
+    client,
+    config
+}
 
 // Build client commands.
 client.commands = new Discord.Collection();
 fs.readdir(`${__dirname}/commands`, (err, files) => {
-    log(`Loading ${files.length} commands...`, `cyan`);
+    log(`cyan`, `Loading ${files.length} commands...`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./commands/${f}`));
-        log(`${i}: ${f} was loaded!`, `cyan`);
+        log(`yellow`, `${i}: ${f} was loaded!`);
     });
 });
 
 // Build client events.
 client.events = new Discord.Collection();
 fs.readdir(`${__dirname}/events`, (err, files) => {
-    log(`Loading ${files.length} events...`, `cyan`);
+    log(`cyan`, `Loading ${files.length} events...`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./events/${f}`));
-        log(`${i}: ${f} was loaded!`, `cyan`);
+        log(`yellow`, `${i}: ${f} was loaded!`);
     });
 });
 
-client.login(config.token).catch(err => log(err, `red`));
+client.login(config.token).catch(err => log(`red`, `Could not login to client.`));
 process.on(`SIGINT`, () => {
-    log(`Client shutting down`, `red`);
-    log(``, `white`);
+    log(`red`, `Client is exiting...`);
     client.destroy();
     process.exit();
 });

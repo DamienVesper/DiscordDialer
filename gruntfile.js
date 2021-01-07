@@ -3,9 +3,11 @@ module.exports = (grunt => {
         pkg: grunt.file.readJSON(`package.json`),
         watch: {
             scripts: {
-                files: [`**/*.js`, `!**/node-modules/**`, `**/*.css`, `**/*.html`],
+                files: [`**/*.js`, `!**/node-modules/**`],
                 tasks: [`build-dev`],
-                options: { spawn: false }
+                options: {
+                    spawn: false
+                }
             }
         },
         concurrent: {
@@ -13,7 +15,9 @@ module.exports = (grunt => {
                 `nodemon:dev`,
                 `watch:scripts`
             ],
-            options: { logConcurrentOutput: true }
+            options: {
+                logConcurrentOutput: true
+            }
         },
         nodemon: {
             dev: {
@@ -35,6 +39,6 @@ module.exports = (grunt => {
 
     grunt.loadNpmTasks(`grunt-contrib-clean`);
     grunt.loadNpmTasks(`grunt-contrib-watch`);
-    grunt.loadNpmTasks(`grunt-contrib-nodemon`);
+    grunt.loadNpmTasks(`grunt-nodemon`);
     grunt.loadNpmTasks(`grunt-concurrent`);
 });
