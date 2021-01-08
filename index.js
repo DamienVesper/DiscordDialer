@@ -6,6 +6,7 @@ const dotenv = require(`dotenv`).config();
 
 let client = new Discord.Client({
     disableEveryone: true,
+    fetchAllMembers: true,
     sync: true
 });
 
