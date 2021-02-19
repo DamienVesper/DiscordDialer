@@ -17,10 +17,7 @@ log(`green`, `Current call state: ${client.callStatus}`);
 if (client.callStatus) log(`green`, `Resetting Call Status to True`);
 
 // Export client and config because the command files need them.
-module.exports = {
-    client,
-    config
-};
+module.exports = client;
 
 // Build client commands.
 client.commands = new Discord.Collection();
