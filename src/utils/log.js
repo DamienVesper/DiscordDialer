@@ -11,7 +11,7 @@ module.exports = (color, ...content) => {
     // Create Variables.
     if (!fs.existsSync(`./${config.logs.dir}`)) fs.mkdirSync(config.logs.dir);
 
-    const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../`, config.logs.dir)}/${config.logs.file}`, {
+    const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../../${config.logs.dir}`)}/${config.logs.file}`, {
         flags: `a`
     });
     // Report an error if there is an issue with logging.
@@ -62,7 +62,7 @@ module.exports = (color, ...content) => {
         else logContent += arg.toString();
     }
 
-    // Log logContent with the color specified to console
+    // Log logContent with the color specified to console.
     logFile.write(`${`${formattedTime} ${logContent}`.replace(/\r?\n|\r/g, ``)}\n`);
     console.log(logColor || `\x1b[37m`, formattedTime, logContent);
 };
