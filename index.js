@@ -1,9 +1,10 @@
+require(`dotenv`).config();
+
 const Discord = require(`discord.js`);
 const fs = require(`fs`);
 const config = require(`./config/config.js`);
 const log = require(`./utils/log.js`);
 const path = require(`path`);
-const dotenv = require(`dotenv`).config();
 
 const client = new Discord.Client({
     disableEveryone: true,
@@ -33,7 +34,7 @@ fs.readdir(path.resolve(__dirname, `commands`), files => {
 
 // Build client events.
 client.events = new Discord.Collection();
-fs.readdir(`${__dirname}/events`, (err, files) => {
+fs.readdir(path.resolve(__dirname, `events`), files => {
     log(`cyan`, `Loading ${files.length} events...`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./events/${f}`));
