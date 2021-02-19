@@ -7,7 +7,8 @@
     "dist-test": "cross-env NODE_ENV=\"prod\" && node index.js",
     "prod": "cross-env NODE_ENV=\"prod\" && pm2 start index.js",
     "shard": "cross-env NODE_ENV=\"prod\" && pm2 start shards.js",
-    "dev": "cross-env NODE_ENV=\"dev\" && grunt dev"
+    "dev": "cross-env NODE_ENV=\"dev\" && grunt dev",
+    "dev:lint": "eslint . --fix --ext .js"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,16 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-nodemon": "^0.4.2",
+    "path": "^0.12.7",
     "pm2": "^4.5.1",
     "robotjs": "^0.6.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.18.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
   }
 }

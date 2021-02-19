@@ -2,6 +2,7 @@ const Discord = require(`discord.js`);
 const fs = require(`fs`);
 const config = require(`./config/config.js`);
 const log = require(`./utils/log.js`);
+const path = require(`path`);
 const dotenv = require(`dotenv`).config();
 
 let client = new Discord.Client({
@@ -23,7 +24,7 @@ module.exports = {
 
 // Build client commands.
 client.commands = new Discord.Collection();
-fs.readdir(`${__dirname}/commands`, (err, files) => {
+fs.readdir(path.resolve(__dirname, `commands`), files => {
     log(`cyan`, `Loading ${files.length} commands...`);
     files.forEach((f, i) => {
         client.commands.set(f.split(`.`)[0], require(`./commands/${f}`));
@@ -41,7 +42,9 @@ fs.readdir(`${__dirname}/events`, (err, files) => {
     });
 });
 
-client.login(config.token).catch(err => log(`red`, `Could not login to client.`));
+client.login(config.token).catch(() => log(`red`, `Could not login to client.`));
+
+process.on(`uncaughtException`, e => log(`red`, e.stack));
 process.on(`SIGINT`, () => {
     log(`red`, `Client is exiting...`);
     client.destroy();
