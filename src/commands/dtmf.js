@@ -20,7 +20,7 @@ module.exports.execute = async (client, message, args) => {
     const numbers = args[0].toString().toLowerCase().split(``);
 
     numbers.forEach(number => {
-        setTimeout(() => { // Terrible way for this to work but it works.
+        setTimeout(() => {
             switch (number) {
                 case `1`:
                     robot.dragMouse(280, 160);
