@@ -1,7 +1,6 @@
 // This is the configuration file. The 'developers' array should include all user IDs of those who are the owner of the standalone / production client.
 // Prefix should be replaced with your custom prefix.
-
-const dotenv = require(`dotenv`).config();
+require(`dotenv`).config();
 
 const config = {
     // Preset configuration.
