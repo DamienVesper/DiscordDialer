@@ -4,7 +4,7 @@ const robot = require(`robotjs`);
 
 // Command data.
 module.exports = {
-    desc: `Dial a number.`,
+    desc: `Enter a number to the pad.`,
     usage: `<number>`
 };
 
