@@ -1,4 +1,22 @@
+/* Used to make complex logging easier and shorter */
+
+// Ex usage
+// log(message.content, `magenta`, message, {server: true, channel: true, user: true, regex: true});
+
+const fs = require(`fs`);
+const config = require(`../config/config.js`);
+const path = require(`path`);
+
 module.exports = (color, ...content) => {
+    // Create Variables.
+    if (!fs.existsSync(`./${config.logs.dir}`)) fs.mkdirSync(config.logs.dir);
+
+    const logFile = fs.createWriteStream(`${path.resolve(__dirname, `../`, config.logs.dir)}/${config.logs.file}`, {
+        flags: `a`
+    });
+    // Report an error if there is an issue with logging.
+    logFile.on(`error`, err => console.log(`\x1b[33m`, `Warning: Error writing log to ${config.logs.dir + config.logs.file}\n${err}`));
+
     // Set timing variables.
     const time = new Date();
     const second = time.getSeconds().toString().padStart(2, `0`);
@@ -44,5 +62,7 @@ module.exports = (color, ...content) => {
         else logContent += arg.toString();
     }
 
+    // Log logContent with the color specified to console
+    logFile.write(`${`${formattedTime} ${logContent}`.replace(/\r?\n|\r/g, ``)}\n`);
     console.log(logColor || `\x1b[37m`, formattedTime, logContent);
 };
