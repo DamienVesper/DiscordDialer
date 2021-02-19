@@ -17,7 +17,7 @@ module.exports.execute = async (client, message, args) => {
 
     if (!args[0]) {
         let helpTxt = ``;
-        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}` : ``)}\` - ${cmd.description}\n` : null);
+        client.commands.forEach(cmd => helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}` : ``)}\` - ${cmd.description}\n`);
 
         const sEmbed = new Discord.RichEmbed()
             .setColor(0xcfcf53)
@@ -31,7 +31,7 @@ module.exports.execute = async (client, message, args) => {
     const name = args[0].toLowerCase();
     const command = client.commands.get(name) || client.commands.find(c => c.aliases && c.aliases.includes(name));
 
-    if (!command || command.name == `dev`) return message.channel.send(`${v} That is not a valid command!`);
+    if (!command) return message.channel.send(`${m} That is not a valid command!`);
 
     if (command.usage) data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
     if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(`, `)}`);
