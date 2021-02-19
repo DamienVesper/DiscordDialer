@@ -12,7 +12,7 @@ module.exports = {
     description: `Dial a number.`,
     usage: `<number>`,
     aliases: [`call`]
-}
+};
 
 // Command execution.
 module.exports.execute = async (client, message, args) => {
@@ -33,9 +33,8 @@ module.exports.execute = async (client, message, args) => {
         client.callStatus = true;
 
         setTimeout(() => {
-            message.channel.send(`${config.emojis.ok} Balance check has ended...`)
+            message.channel.send(`${config.emojis.ok} Balance check has ended...`);
         }, 11e3);
-        return;
     } else if (args[0] == `echotest`) {
         message.channel.send(`${config.emojis.telephone} Dialing echotest...`);
         exec(`dial.bat 4443`, (err, data) => {
@@ -54,4 +53,4 @@ module.exports.execute = async (client, message, args) => {
         message.channel.send(`${config.emojis.telephone} Dialing \`+1${args[0]}\`...`);
         client.callStatus = true;
     }
-}
+};

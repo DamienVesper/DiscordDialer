@@ -10,7 +10,7 @@ module.exports = {
     description: `Redial a number.`,
     usage: ``,
     aliases: []
-}
+};
 
 // Command execution.
 module.exports.execute = async (client, message, args) => {
@@ -23,4 +23,4 @@ module.exports.execute = async (client, message, args) => {
         robot.dragMouse(280, 320);
         robot.mouseClick();
     } else message.channel.send(`${m} ${config.emojis.no} There is a call currently taking place at this time!`);
-}
+};

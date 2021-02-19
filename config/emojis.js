@@ -4,6 +4,6 @@ const emojis = {
     warning: `:warning:`,
     ok: `:white_check_mark:`,
     telephone: `:telephone:`
-}
+};
 
-module.exports = emojis
+module.exports = emojis;

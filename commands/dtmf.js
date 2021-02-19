@@ -10,7 +10,7 @@ module.exports = {
     description: `Dial a number.`,
     usage: `<number>`,
     aliases: []
-}
+};
 
 // Command execution.
 module.exports.execute = async (client, message, args) => {
@@ -21,7 +21,7 @@ module.exports.execute = async (client, message, args) => {
 
     message.channel.send(`${m} ${config.emojis.ok} Sent DTMF Code: ${args[0]}`);
 
-    let numbers = args[0].toString().toLowerCase().split(``);
+    const numbers = args[0].toString().toLowerCase().split(``);
 
     numbers.forEach(number => {
         setTimeout(() => { // Terrible way for this to work but it works.
@@ -74,4 +74,4 @@ module.exports.execute = async (client, message, args) => {
             robot.mouseClick();
         }, 50);
     });
-}
+};

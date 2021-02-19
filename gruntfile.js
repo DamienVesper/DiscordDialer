@@ -1,4 +1,4 @@
-module.exports = (grunt => {
+module.exports = grunt => {
     grunt.initConfig({
         pkg: grunt.file.readJSON(`package.json`),
         watch: {
@@ -40,4 +40,4 @@ module.exports = (grunt => {
     grunt.loadNpmTasks(`grunt-contrib-watch`);
     grunt.loadNpmTasks(`grunt-nodemon`);
     grunt.loadNpmTasks(`grunt-concurrent`);
-});
+};

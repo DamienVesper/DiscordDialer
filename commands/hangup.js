@@ -12,7 +12,7 @@ module.exports = {
     description: `Hang up the call.`,
     usage: ``,
     aliases: [`fuckoff`]
-}
+};
 
 // Command execution.
 module.exports.execute = async (client, message, args) => {
@@ -29,4 +29,4 @@ module.exports.execute = async (client, message, args) => {
             client.callStatus = false;
         });
     } else message.channel.send(`${m} ${config.emojis.no} There is no call taking place at this time!`);
-}
+};

@@ -9,17 +9,17 @@ module.exports = {
     usage: `[command name]`,
     cooldown: null,
     aliases: [`commands`, `?`, `h`]
-}
+};
 
 module.exports.execute = async (client, message, args) => {
-    let m = `${message.author} »`
-    let data = [];
+    const m = `${message.author} »`;
+    const data = [];
 
     if (!args[0]) {
         let helpTxt = ``;
-        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}`: ``)}\` - ${cmd.description}\n` : null);
+        client.commands.forEach(cmd => cmd.dev != true && cmd.name != `` && cmd.name != undefined ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}` : ``)}\` - ${cmd.description}\n` : null);
 
-        let sEmbed = new Discord.RichEmbed()
+        const sEmbed = new Discord.RichEmbed()
             .setColor(0xcfcf53)
             .setAuthor(`Help Menu`)
             .setDescription(helpTxt)
@@ -37,11 +37,11 @@ module.exports.execute = async (client, message, args) => {
     if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(`, `)}`);
     if (command.cooldown !== null) data.push(`**Cooldown:** ${command.cooldown} seconds.`);
 
-    let sEmbed = new Discord.RichEmbed()
+    const sEmbed = new Discord.RichEmbed()
         .setColor(0xcfcf53)
         .setAuthor(`Help Menu | ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}`)
         .setDescription(`${command.description}\n\n${data.join(`\n`)}`)
         .setTimestamp(new Date())
         .setFooter(config.footer);
     return message.channel.send(sEmbed);
-}
+};

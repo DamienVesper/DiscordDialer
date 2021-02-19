@@ -5,12 +5,11 @@ const log = require(`./utils/log.js`);
 const path = require(`path`);
 const dotenv = require(`dotenv`).config();
 
-let client = new Discord.Client({
+const client = new Discord.Client({
     disableEveryone: true,
     fetchAllMembers: true,
     sync: true
 });
-
 
 client.callStatus = false;
 log(`green`, `Current call state: ${client.callStatus}`);
@@ -20,7 +19,7 @@ if (client.callStatus) log(`green`, `Resetting Call Status to True`);
 module.exports = {
     client,
     config
-}
+};
 
 // Build client commands.
 client.commands = new Discord.Collection();

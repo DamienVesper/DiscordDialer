@@ -3,7 +3,7 @@
 
 const dotenv = require(`dotenv`).config();
 
-let config = {
+const config = {
     // Preset configuration.
     colors: [0x00ff00, 0xff0000, 0xffffff],
     emojis: require(`./emojis.js`),
@@ -23,6 +23,6 @@ let config = {
         dir: `logs`,
         file: `bot.log`
     }
-}
+};
 
-module.exports = config
+module.exports = config;

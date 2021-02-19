@@ -1,4 +1,4 @@
-let blacklist = [
+const blacklist = [
     `18002255324`,
     `18002738255`,
     `18002255532`,
@@ -9,6 +9,6 @@ let blacklist = [
     `12024561111`,
     `12024561414`,
     `18004483000`
-]
+];
 
 module.exports = blacklist;
