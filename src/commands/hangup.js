@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args) => {
         message.channel.send(`${m} ${config.emojis.ok} Hung up the phone...`);
         exec(`dial.bat /hangupall`, (err, data) => {
             if (err) log(`red`, err);
-            log(`magenta`, `${message.author.tag} hung up.`);
+            log(`cyan`, `${message.author.tag} hung up.`);
             client.callStatus = false;
         });
     } else message.channel.send(`${m} ${config.emojis.no} There is no call taking place at this time!`);

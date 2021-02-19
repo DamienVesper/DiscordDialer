@@ -15,8 +15,6 @@ module.exports.run = async (client, message, args) => {
     const m = `${message.author} »`;
 
     if (!message.member.roles.some(r => (config.roles.admin.includes(r.id) || config.roles.trusted.includes(r.id)))) return message.channel.send(`${m} ${config.emojis.no} You can't use that!`);
-    log(`green`, `Current Call State: ${client.callStatus}`);
-
     if (client.callStatus) return message.channel.send(`${m} ${config.emojis.no} A call is currently taking place!`);
 
     if (args[0] === `balance`) {
@@ -24,7 +22,7 @@ module.exports.run = async (client, message, args) => {
 
         exec(`dial.bat *225`, (err, data) => {
             if (err) return log(err, `red`);
-            log(`magenta`, `${message.author.tag} dialed number: BALANCE (225).`);
+            log(`cyan`, `${message.author.tag} dialed number: BALANCE (225).`);
         });
         client.callStatus = true;
 
@@ -35,7 +33,7 @@ module.exports.run = async (client, message, args) => {
         message.channel.send(`${config.emojis.telephone} Dialing echotest...`);
         exec(`dial.bat 4443`, (err, data) => {
             if (err) log(`red`, err.stack);
-            log(`magenta`, `${message.author.tag} dialed number: ECHOTEST (4443).`);
+            log(`cyan`, `${message.author.tag} dialed number: ECHOTEST (4443).`);
         });
         client.callStatus = true;
     } else {

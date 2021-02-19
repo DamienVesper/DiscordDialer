@@ -3,7 +3,7 @@ module.exports = grunt => {
         pkg: grunt.file.readJSON(`package.json`),
         watch: {
             scripts: {
-                files: [`**/*.js`, `!**/node-modules/**`],
+                files: [`**/*.js`, `!**/node-modules/**`, `!**/*.log`],
                 tasks: [`build-dev`],
                 options: {
                     spawn: false
