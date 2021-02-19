@@ -4,7 +4,7 @@ const robot = require(`robotjs`);
 
 // Command data.
 module.exports = {
-    description: `Dial a number.`,
+    desc: `Dial a number.`,
     usage: `<number>`
 };
 

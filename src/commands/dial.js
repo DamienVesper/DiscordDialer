@@ -5,7 +5,7 @@ const log = require(`../utils/log.js`);
 
 // Command data.
 module.exports = {
-    description: `Dial a number.`,
+    desc: `Dial a number.`,
     usage: `<number>`,
     aliases: [`call`]
 };

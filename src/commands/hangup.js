@@ -5,7 +5,7 @@ const log = require(`../utils/log.js`);
 
 // Command data.
 module.exports = {
-    description: `Hang up the call.`,
+    desc: `Hang up the call.`,
     aliases: [`fuckoff`]
 };
 

@@ -5,7 +5,7 @@ const robot = require(`robotjs`);
 // Command data.
 module.exports = {
     name: `redial`,
-    description: `Redial a number.`
+    desc: `Redial a number.`
 };
 
 // Command execution.
