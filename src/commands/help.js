@@ -1,23 +1,20 @@
 const Discord = require(`discord.js`);
-const {
-    config
-} = require(`../index.js`);
+const config = require(`../../config/config.js`);
 
 module.exports = {
-    name: `help`,
-    description: `View info about commands.`,
-    usage: `[command name]`,
-    cooldown: null,
-    aliases: [`commands`, `?`, `h`]
+    desc: `View the help menu.`,
+    usage: `[command]`
 };
 
-module.exports.execute = async (client, message, args) => {
+module.exports.run = async (client, message, args) => {
     const m = `${message.author} »`;
+
+    const commands = client.commands;
     const data = [];
 
     if (!args[0]) {
         let helpTxt = ``;
-        client.commands.forEach(cmd => helpTxt += `\`${config.prefix + cmd.name + (cmd.usage !== null ? ` ${cmd.usage}` : ``)}\` - ${cmd.description}\n`);
+        commands.forEach(cmd => cmd.name !== `dev` ? helpTxt += `\`${config.prefix + cmd.name + (cmd.usage ? ` ${cmd.usage}` : ``)}\` - ${cmd.desc}\n` : null);
 
         const sEmbed = new Discord.RichEmbed()
             .setColor(0xcfcf53)
@@ -28,19 +25,18 @@ module.exports.execute = async (client, message, args) => {
         return message.channel.send(sEmbed);
     }
 
-    const name = args[0].toLowerCase();
-    const command = client.commands.get(name) || client.commands.find(c => c.aliases && c.aliases.includes(name));
+    const commandName = args[0].toLowerCase();
+    const command = commands.find(command => command.name === commandName) || commands.find(c => c.aliases && c.aliases.includes(name));
 
     if (!command) return message.channel.send(`${m} That is not a valid command!`);
 
-    if (command.usage) data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
+    if (command.usage) data.push(`**Usage:** \`${config.prefix}${command.name} ${command.usage}\``);
     if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(`, `)}`);
-    if (command.cooldown !== null) data.push(`**Cooldown:** ${command.cooldown} seconds.`);
 
     const sEmbed = new Discord.RichEmbed()
         .setColor(0xcfcf53)
         .setAuthor(`Help Menu | ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}`)
-        .setDescription(`${command.description}\n\n${data.join(`\n`)}`)
+        .setDescription(`${command.desc}\n\n${data.join(`\n`)}`)
         .setTimestamp(new Date())
         .setFooter(config.footer);
     return message.channel.send(sEmbed);

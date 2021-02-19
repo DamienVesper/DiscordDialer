@@ -21,7 +21,7 @@ module.exports = grunt => {
         },
         nodemon: {
             dev: {
-                script: `index.js`,
+                script: `src/index.js`,
                 options: {
                     args: [`dev`],
                     nodeArgs: [`--inspect`]

@@ -1,13 +1,11 @@
 // Require modules.
-const config = require(`../config/config`);
+const config = require(`../../config/config`);
 const { exec } = require(`child_process`);
-const log = require(`../utils/log.js`);
+const log = require(`../../utils/log.js`);
 
 // Command data.
 module.exports = {
-    name: `hangup`,
     description: `Hang up the call.`,
-    usage: ``,
     aliases: [`fuckoff`]
 };
 

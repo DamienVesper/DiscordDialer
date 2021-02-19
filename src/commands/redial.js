@@ -1,13 +1,11 @@
 // Require modules.
-const config = require(`../config/config`);
+const config = require(`../../config/config`);
 const robot = require(`robotjs`);
 
 // Command data.
 module.exports = {
     name: `redial`,
-    description: `Redial a number.`,
-    usage: ``,
-    aliases: []
+    description: `Redial a number.`
 };
 
 // Command execution.

@@ -4,7 +4,7 @@
 // log(message.content, `magenta`, message, {server: true, channel: true, user: true, regex: true});
 
 const fs = require(`fs`);
-const config = require(`../config/config.js`);
+const config = require(`../../config/config.js`);
 const path = require(`path`);
 
 module.exports = (color, ...content) => {
