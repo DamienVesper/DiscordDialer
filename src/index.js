@@ -19,10 +19,7 @@ const client = new Discord.Client({
 
 // Uncaught handler.
 process.on(`uncaughtException`, e => log(`red`, e.stack));
-
 client.callStatus = false;
-log(`green`, `Current call state: ${client.callStatus}`);
-if (client.callStatus) log(`green`, `Resetting Call Status to True`);
 
 // Export client.
 module.exports = client;
