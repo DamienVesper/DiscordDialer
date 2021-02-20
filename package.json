@@ -4,9 +4,9 @@
   "description": "A dialer utilizing MicroSIP and Discord.JS",
   "main": "index.js",
   "scripts": {
-    "dist-test": "cross-env NODE_ENV=\"prod\" && node index.js",
-    "prod": "cross-env NODE_ENV=\"prod\" && pm2 start index.js",
-    "shard": "cross-env NODE_ENV=\"prod\" && pm2 start shards.js",
+    "dist-test": "cross-env NODE_ENV=\"prod\" && node ./src/index.js",
+    "prod": "cross-env NODE_ENV=\"prod\" && pm2 start ./src/index.js",
+    "shard": "cross-env NODE_ENV=\"prod\" && pm2 start ./src/shards.js",
     "dev": "cross-env NODE_ENV=\"dev\" && grunt dev",
     "dev:lint": "eslint . --fix --ext .js"
   },
