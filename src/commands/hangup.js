@@ -1,7 +1,9 @@
 // Require modules.
 const config = require(`../../config/config`);
-const { exec } = require(`child_process`);
 const log = require(`../utils/log.js`);
+
+const path = require(`path`);
+const { exec } = require(`child_process`);
 
 // Command data.
 module.exports = {
@@ -18,7 +20,7 @@ module.exports.run = async (client, message, args) => {
 
     if (client.callStatus) {
         message.channel.send(`${m} ${config.emojis.ok} Hung up the phone...`);
-        exec(`dial.bat /hangupall`, (err, data) => {
+        exec(`${path.resolve(__dirname, `../../scripts/dial.bat`)} /hangupall`, (err, data) => {
             if (err) log(`red`, err);
             log(`cyan`, `${message.author.tag} hung up.`);
             client.callStatus = false;
