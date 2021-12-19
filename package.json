@@ -1,5 +1,5 @@
 {
-  "name": "discord-dialer",
+  "name": "discorddialer",
   "version": "1.1.0",
   "description": "A dialer utilizing MicroSIP and Discord.JS",
   "main": "index.js",
