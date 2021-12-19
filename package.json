@@ -20,7 +20,7 @@
     "microsip"
   ],
   "author": "DamienVesper",
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/DamienVesper/Discord-Dialer/issues"
   },
@@ -39,7 +39,8 @@
     "robotjs": "^0.6.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
+    "@babel/core": "^7.16.5",
+    "@babel/eslint-parser": "^7.16.5",
     "eslint": "^7.18.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
